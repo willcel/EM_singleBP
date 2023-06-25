@@ -29,10 +29,10 @@ xr = 0.58;    % 中心距
 
 %{
 for j = 2:ns
-    path_code1 = ['D:\单点程序06022\exp_nanjing',num2str(j),'\'];   
+    path_code1 = ['D:\单点程序06021_减少叠加\exp_nanjing',num2str(j),'\'];   
     mkdir(path_code1)
 %     cd()
-    sourcefolder = 'D:\单点程序06022\exp_nanjing1\';
+    sourcefolder = 'D:\单点程序06021_减少叠加\exp_nanjing1\';
     copyfile(sourcefolder, path_code1)
 %     filenames=dir;
 %     cd ..
