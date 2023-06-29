@@ -14,14 +14,14 @@
 
 
 %%
-iterEnd = 60;
 
 a1 = []; 
 for i = 1:ns %:ns
-    if i == 16 || i == 17
-        iterEnd = 52;
-    end
-    j = pset(i);
+%     if i == 16 || i == 17
+%         iterEnd = 52;
+%     end
+%     j = pset(i);
+    j=i;
     fileid = fopen( fullfile(filefolder, sprintf('errns%d.dat', j))   );
     res = textscan(fileid,'%f64');
     fclose(fileid);
@@ -36,6 +36,7 @@ for i = 1:ns %:ns
     xlabel('反演迭代次数')
     ylabel('反演结果误差')
 
+    iterEnd = length(err_it);
 legend(['测点',num2str(i)])
 set(gca,'FontSize',14,'FontWeight','bold')
 mkdir(fullfile(filefolder,'\反演成像图\迭代误差\'))

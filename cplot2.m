@@ -3,8 +3,8 @@
 clear
 % close all
 dbstop if error
-pset = 1:17;
-% delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
+pset = [1:6,6.5:0.5:10.5, 11:18];
+delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
 ns = length(pset);                  % 娴嬬偣鐨勪釜鏁?
 nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
 total_depth = 25;           % 鏈?澶ф繁搴? m
@@ -14,16 +14,23 @@ no_para = 2 * nolayer -1;
 
 
 %%
-filefolder = 'D:\单点程序06021_减少叠加\仿真结果\0625v1\';
-for iter = 1:60 % 
+filefolder = 'D:\0628wks\EM_singleBP\仿真结果\0629v2\';
+iterEnd = 60;
+for iter = 1:iterEnd % 
     a1 = []; ind_array = [];
     for i = 1:ns %:ns
-        j = pset(i);
+%         j = pset(i);
+        j = i;
         fileid = fopen( fullfile(filefolder, sprintf('res2dns%d.dat', j))   );
         res = textscan(fileid,'%f64');
         fclose(fileid);
         res2 = res{1,1}; res2 = res2';
-        atmp = res2(1+(iter-1)*(no_para):iter*(no_para));
+        if (iter)*(no_para) > length(res2)
+            max_iter = floor( length(res2) / no_para);
+            atmp = res2(1+(max_iter-1)*(no_para):max_iter*(no_para));
+        else
+            atmp = res2(1+(iter-1)*(no_para):iter*(no_para));
+        end
         a1 = [a1 ; atmp];
     end
 
@@ -33,7 +40,7 @@ for iter = 1:60 %
     a =a1;
     a = ones(ns, no_para);
     j = 1;
-    for i = pset
+    for i = 1:ns% pset
         a(i,:) = a1(j,:);
         for k = 1:8
             if(a(i,k) > 1e5)
@@ -90,13 +97,12 @@ for iter = 1:60 %
     y = 0:dy:total_depth-dy;
     %%
     mat(mat==1)=NaN;
-    p2 = 1:ns;
+
      % ---- 为了pcolor画出最后一个测点 ---------
-    p2 = [p2, ns+1];
-    mat = [mat;zeros(1,total_depth*scale_factor)];
+    xdraw_range = [pset, pset(end)+1]; mat = [mat;zeros(1,total_depth*scale_factor)];
     
     figure('Position',[200 200 900 600])
-    h=pcolor(0.5*(p2-min(p2)), y, log10(mat'));
+    h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
       % h.EdgeColor = 'none';
     shading flat%interp
     colormap jet
@@ -112,7 +118,7 @@ for iter = 1:60 %
     mkdir(fullfile(filefolder,'\反演成像图\'))
     for i = 1:ns
 %     scatter(i-0.25,1,'^')
-        text(i*0.5-0.25, 2, num2str(i), ...
+        text(xdraw_range(i)-0.5, 2, num2str(i), ...
         'HorizontalAlignment', 'center', ...
         'VerticalAlignment', 'bottom', 'FontSize', 12);
     end
