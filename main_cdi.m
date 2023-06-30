@@ -7,13 +7,13 @@ clear
 
 %% 数据预处理的参数
 
-pset = 1:23;  % 测点的坐标，文件夹的名称
+pset = 1:28;  % 测点的坐标，文件夹的名称
 ns = length(pset);                  % 测点的个数
 
 
 %% 数据采样
 nt = 56;                        % 抽道时间
-t_st = 2.20e-3;           % 起始时间        
+t_st = 2.02e-3;           % 起始时间        
 t_ed = 20*10^(-3);       % 结束时间 
 
 %% 反演参数
@@ -29,10 +29,10 @@ xr = 0.58;    % 中心距
 
 %{
 for j = 2:ns
-    path_code1 = ['D:\0628wks\EM_singleBP\exp_nanjing',num2str(j),'\'];   
+    path_code1 = ['D:\0628wks\测线2\EM_singleBP\exp_nanjing',num2str(j),'\'];   
     mkdir(path_code1)
 %     cd()
-    sourcefolder = 'D:\0628wks\EM_singleBP\exp_nanjing1';
+    sourcefolder = 'D:\0628wks\测线2\EM_singleBP\exp_nanjing1';
     copyfile(sourcefolder, path_code1)
 %     filenames=dir;
 %     cd ..

@@ -1,10 +1,10 @@
 
 %%
-name = 'D:\0628wks\EM_singleBP\仿真结果\0629v2\';
+name = 'D:\0628wks\测线2\EM_singleBP\仿真结果\0630v1\';
 mkdir(name)
-for i = 1:23
+for i = 1:28
     ns = i;
-    cd(['D:\0628wks\EM_singleBP\\exp_nanjing',num2str(i)])
+    cd(['D:\0628wks\测线2\EM_singleBP\\exp_nanjing',num2str(i)])
     copyfile("res2d.dat",fullfile(name, ['res2dns',num2str(ns),'.dat']))
     copyfile("err.dat",  fullfile(name,['errns',num2str(ns),'.dat']))
     copyfile("log.dat",  fullfile(name,['logns',num2str(ns),'.dat']))

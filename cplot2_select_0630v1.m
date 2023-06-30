@@ -1,7 +1,7 @@
 % % 瀹炴祴鏁版嵁鐨勪綔鍥?
 % % function [] = myplot4(ns, nolayer, pset, total_depth, delta_pset)
 clear
-% close all
+close all
 dbstop if error
 pset = 1+[0:5, 5.5:0.5:9, 10:23];
 delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
@@ -12,37 +12,35 @@ no_para = 2 * nolayer -1;
 %%
 
 
+ind_array = 27 * ones(1,28);
+ind_array([1 12]) = [30 25];
 
 %%
-filefolder = 'D:\0628wks\测线2\EM_singleBP\仿真结果\0630v1\';
-iterEnd = 60;
-for iter = 1:iterEnd % 
-    a1 = []; ind_array = [];
+filefolder = '.\仿真结果\0630v1';
+
+    a1 = []; 
     for i = 1:ns %:ns
+        ind = ind_array(i);
 %         j = pset(i);
         j = i;
         fileid = fopen( fullfile(filefolder, sprintf('res2dns%d.dat', j))   );
         res = textscan(fileid,'%f64');
-        fclose(fileid);
+        fclose(fileid)
         res2 = res{1,1}; res2 = res2';
-        if (iter)*(no_para) > length(res2)
-            max_iter = floor( length(res2) / no_para);
-            atmp = res2(1+(max_iter-1)*(no_para):max_iter*(no_para));
-        else
-            atmp = res2(1+(iter-1)*(no_para):iter*(no_para));
-        end
+        atmp = res2(1+(ind-1)*(no_para):ind*(no_para));
         a1 = [a1 ; atmp];
     end
 
-    
+    % 测点7有误，
+%     a1(7,:) = a1(6,:); 
     
     %%
     a =a1;
     a = ones(ns, no_para);
     j = 1;
-    for i = 1:ns% pset
+    for i = 1:ns%pset
         a(i,:) = a1(j,:);
-        for k = 1:8
+        for k = 1:no_para
             if(a(i,k) > 1e5)
                 a(i,k) = 1e5;
             elseif(a(i,k) < 1e-5)
@@ -53,9 +51,22 @@ for iter = 1:iterEnd %
     end
     % a
     
-    %%
+    selectAns = a;
+    save('.\selectAns_06280630v1.mat', "selectAns")
+
+    %% xiugai
+    a(10,3+nolayer) = a(10,3+nolayer) - 0.2;
     
-      scale_factor = 100;
+%     a(8:12,4) = a(8:12,4) -0.009;
+    %% 不同层之间划分，方便观察
+%     depthSeparate = a(:,6:9);
+%     for j = 2:4
+%         depthSeparate(:,j) = depthSeparate(:,j-1) + depthSeparate(:,j);
+%     end
+%     save('F:\BaiduNetdiskDownload\0514报告图库\04071仿真结果\a040710522v1.mat' ,'a')
+
+
+    scale_factor = 100;
     mat = zeros(ns,total_depth*scale_factor);
     
     
@@ -97,33 +108,45 @@ for iter = 1:iterEnd %
     y = 0:dy:total_depth-dy;
     %%
     mat(mat==1)=NaN;
+    p2 = 1:ns;
 
-     % ---- 为了pcolor画出最后一个测点 ---------
+    % ---- 为了pcolor画出最后一个测点 ---------
     xdraw_range = [pset, pset(end)+1]; mat = [mat;zeros(1,total_depth*scale_factor)];
-    
+    % ---------------------------------------
+
+%     figure('Position',[200 200 900 600])
     figure('Position',[200 200 1500 800])
     h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
-      % h.EdgeColor = 'none';
-    shading flat%interp
+    % h.EdgeColor = 'none';
+    shading flat%
+
+%     shading interp
+%     xlim([0 23])
+
     colormap jet
     xlabel('Measurement Line / m','FontSize',15,'FontWeight','bold')
     ylabel('Depth / m','FontSize',15,'FontWeight','bold')
     h=colorbar;
     set(get(h,'title'),'string','log10(\rho)');
     % title('predicted model')
-    set(gca,'FontSize',14,'FontWeight','bold')
+    set(gca,'FontSize',18,'FontWeight','bold')
     caxis([-4,2])
     set(gca,'ydir','reverse')
-    title(['迭代次数',num2str(iter)])
-    mkdir(fullfile(filefolder,'\反演成像图\'))
+
     for i = 1:ns
-%     scatter(i-0.25,1,'^')
         text(xdraw_range(i)-0.5, 2, num2str(i), ...
         'HorizontalAlignment', 'center', ...
         'VerticalAlignment', 'bottom', 'FontSize', 12);
     end
-    saveas(gcf, fullfile(filefolder,'\反演成像图\', ['迭代次数',num2str(iter),'.tif']  ) )
-    close all
-end
+    
+%     for i = 1:ns
+%         hold on
+%         for k = 1:4
+%             plot(0.5*[i-1 i], [depthSeparate(i,k) depthSeparate(i,k)], 'r', 'LineWidth', 1)
+%         end
+%         hold off
+%     end
 
-cplot2_err
+    saveas(gcf, fullfile(filefolder,'\反演成像图\', ['选择v1.tif']  ) )
+
+%     close all
