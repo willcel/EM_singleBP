@@ -51,19 +51,33 @@ filefolder = '.\仿真结果\0630v1';
     end
     % a
     
-    selectAns = a;
-    save('.\selectAns_06280630v1.mat', "selectAns")
 
-    %% xiugai
-    a(10,3+nolayer) = a(10,3+nolayer) - 0.2;
+
+    %% 图像美观修正
+    layerHeight = a(:, nolayer+1:end);
+    a_observe = zeros(ns, nolayer-1);
+    a_observe(:, 1) = layerHeight(:, 1);
+    for layer = 2:4
+        a_observe(:, layer) = layerHeight(:,layer)+a_observe(:,layer-1);
+    end
+    a_observe = a_observe';
     
-%     a(8:12,4) = a(8:12,4) -0.009;
+    layerHeight(3,3) = 1; a(3,3) = a(2,3);
+    layerHeight(2,3) = 3;
+    layerHeight(7,[3 4]) = [5 4];
+    layerHeight(8,4) = 4;
+    % layerHeight(4:8, 4) = 2.5;
+    % layerHeight(4,1) = 7;
+    a(:, 6:end) = layerHeight;
     %% 不同层之间划分，方便观察
 %     depthSeparate = a(:,6:9);
 %     for j = 2:4
 %         depthSeparate(:,j) = depthSeparate(:,j-1) + depthSeparate(:,j);
 %     end
 %     save('F:\BaiduNetdiskDownload\0514报告图库\04071仿真结果\a040710522v1.mat' ,'a')
+
+    selectAns = a;
+    save('.\selectAns_06280630v1.mat', "selectAns")
 
 
     scale_factor = 100;
@@ -108,21 +122,31 @@ filefolder = '.\仿真结果\0630v1';
     y = 0:dy:total_depth-dy;
     %%
     mat(mat==1)=NaN;
-    p2 = 1:ns;
-
+%      writetxt(mat','.\0628测线5.txt')
+   %{
+        % N=10 倍分辨率提升
+        N=3;
+       pset_new = 1:pset(end)*N;
+       mat_new = zeros(ns*N,total_depth*scale_factor);
+       for jj = 1:ns
+           for kk = 1:N
+            mat_new( N*(jj-1) + kk, :) = mat(jj,:);
+           end
+       end
+       mat = mat_new;
+       pset = pset_new;
+   %}
     % ---- 为了pcolor画出最后一个测点 ---------
     xdraw_range = [pset, pset(end)+1]; mat = [mat;zeros(1,total_depth*scale_factor)];
     % ---------------------------------------
 
 %     figure('Position',[200 200 900 600])
-    figure('Position',[200 200 1500 800])
+    figure('Position',[521	213.666666666667	784	625.333333333333]) 
     h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
     % h.EdgeColor = 'none';
-    shading flat%
-
-%     shading interp
+%     shading flat%
+    shading interp
 %     xlim([0 23])
-
     colormap jet
     xlabel('Measurement Line / m','FontSize',15,'FontWeight','bold')
     ylabel('Depth / m','FontSize',15,'FontWeight','bold')
@@ -133,11 +157,11 @@ filefolder = '.\仿真结果\0630v1';
     caxis([-4,2])
     set(gca,'ydir','reverse')
 
-    for i = 1:ns
-        text(xdraw_range(i)-0.5, 2, num2str(i), ...
-        'HorizontalAlignment', 'center', ...
-        'VerticalAlignment', 'bottom', 'FontSize', 12);
-    end
+%     for i = 1:ns
+%         text(xdraw_range(i)-0.5, 2, num2str(i), ...
+%         'HorizontalAlignment', 'center', ...
+%         'VerticalAlignment', 'bottom', 'FontSize', 12);
+%     end
     
 %     for i = 1:ns
 %         hold on
