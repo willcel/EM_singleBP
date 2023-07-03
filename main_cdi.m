@@ -7,7 +7,7 @@ clear
 
 %% 数据预处理的参数
 
-pset = 1:28;  % 测点的坐标，文件夹的名称
+pset = 1:13;  % 测点的坐标，文件夹的名称
 ns = length(pset);                  % 测点的个数
 
 
@@ -29,16 +29,11 @@ xr = 0.58;    % 中心距
 
 %{
 for j = 2:ns
-    path_code1 = ['D:\0628wks\测线2\测线5\EM_singleBP\exp_nanjing',num2str(j),'\'];   
+    path_code1 = ['.\exp_nanjing',num2str(j),'\'];   
     mkdir(path_code1)
 %     cd()
-    sourcefolder = 'D:\0628wks\测线2\测线5\EM_singleBP\exp_nanjing1';
+    sourcefolder = '.\exp_nanjing1';
     copyfile(sourcefolder, path_code1)
-%     filenames=dir;
-%     cd ..
-%     for i=1:length(filenames)
-%         copyfile(filenames(i).name,path_code1)
-%     end
 end
 %}
  
