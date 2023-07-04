@@ -1,9 +1,9 @@
 % % 瀹炴祴鏁版嵁鐨勪綔鍥?
 % % function [] = myplot4(ns, nolayer, pset, total_depth, delta_pset)
 clear
-close all
+% close all
 dbstop if error
-pset = 1+[0:5, 5.5:0.5:9, 10:23];
+pset = 1:7;
 delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
 ns = length(pset);                  % 娴嬬偣鐨勪釜鏁?
 nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
@@ -12,11 +12,11 @@ no_para = 2 * nolayer -1;
 %%
 
 
-ind_array = 27 * ones(1,28);
-ind_array([1 12]) = [30 25];
+
+ind_array = [1 1 30 30 23 30 30];
 
 %%
-filefolder = '.\仿真结果\0630v1';
+filefolder = '.\仿真结果\0703v1';
 
     a1 = []; 
     for i = 1:ns %:ns
@@ -61,14 +61,18 @@ filefolder = '.\仿真结果\0630v1';
         a_observe(:, layer) = layerHeight(:,layer)+a_observe(:,layer-1);
     end
     a_observe = a_observe';
+%     
+    % layerHeight(1,3) = 5; 
+    % layerHeight(3,3) = 6; 
+    % layerHeight(4,3) = 6; 
+    % layerHeight(5,3) = 2.8;
+    % layerHeight(7,3) = 2.5;
+    % a(:, 6:end) = layerHeight;
+
+    % a(:,3) = 0.47;
+    % a(1:4,4) = mean(a(1:4,4));
+    % a(5:7,4) = mean(a(5:7,4))-0.024;
     
-    layerHeight(3,3) = 1; a(3,3) = a(2,3);
-    layerHeight(2,3) = 3;
-    layerHeight(7,[3 4]) = [5 4];
-    layerHeight(8,4) = 4;
-    % layerHeight(4:8, 4) = 2.5;
-    % layerHeight(4,1) = 7;
-    a(:, 6:end) = layerHeight;
     %% 不同层之间划分，方便观察
 %     depthSeparate = a(:,6:9);
 %     for j = 2:4
@@ -77,7 +81,7 @@ filefolder = '.\仿真结果\0630v1';
 %     save('F:\BaiduNetdiskDownload\0514报告图库\04071仿真结果\a040710522v1.mat' ,'a')
 
     selectAns = a;
-    save('.\selectAns_06280630v1.mat', "selectAns")
+    save('.\selectAns.mat', "selectAns")
 
 
     scale_factor = 100;
@@ -122,11 +126,11 @@ filefolder = '.\仿真结果\0630v1';
     y = 0:dy:total_depth-dy;
     %%
     mat(mat==1)=NaN;
-%      writetxt(mat','.\0628测线5.txt')
-   %{
+%      writetxt(mat','.\0629测线2.txt')
+   % {
         % N=10 倍分辨率提升
         N=3;
-       pset_new = 1:pset(end)*N;
+       pset_new = (1:pset(end)*N)/N;
        mat_new = zeros(ns*N,total_depth*scale_factor);
        for jj = 1:ns
            for kk = 1:N
@@ -144,9 +148,9 @@ filefolder = '.\仿真结果\0630v1';
     figure('Position',[521	213.666666666667	784	625.333333333333]) 
     h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
     % h.EdgeColor = 'none';
-%     shading flat%
-    shading interp
-%     xlim([0 23])
+    shading flat%
+%     shading interp
+    % xlim([0 6.6])
     colormap jet
     xlabel('Measurement Line / m','FontSize',15,'FontWeight','bold')
     ylabel('Depth / m','FontSize',15,'FontWeight','bold')

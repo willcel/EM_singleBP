@@ -3,7 +3,7 @@
 clear
 % close all
 dbstop if error
-pset = 1:8;
+pset = 1:7;
 delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
 ns = length(pset);                  % 娴嬬偣鐨勪釜鏁?
 nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
@@ -14,7 +14,7 @@ no_para = 2 * nolayer -1;
 
 
 %%
-filefolder = 'D:\0628wks\测线5\EM_singleBP\仿真结果\0630v1\';
+filefolder = 'D:\0628wks\测线2-0629\EM_singleBP\仿真结果\0702v1\';
 iterEnd = 60;
 for iter = 1:iterEnd % 
     a1 = []; ind_array = [];
