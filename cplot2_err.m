@@ -22,14 +22,14 @@ for i = 1:ns %:ns
 %     end
 %     j = pset(i);
     j=i;
-    fileid = fopen( fullfile(filefolder, sprintf('errns%d.dat', j))   );
+    fileid = fopen( fullfile(filefolder1, sprintf('errns%d.dat', j))   );
     res = textscan(fileid,'%f64');
     fclose(fileid);
     res2 = res{1,1}; res2 = res2';
     atmp = res2(1:end);
     err_it = atmp(1,1:end) ;
     iter = 1:length(err_it);
-    figure('Position',[695	394.333333333333	1354	864]) % get(gcf,'Position')
+    figure('Position',[15	14.333333333333	1354	864]) % get(gcf,'Position')
     semilogy(iter, err_it, '-o','LineWidth',1.3)
     grid on
     hold on
@@ -37,15 +37,17 @@ for i = 1:ns %:ns
     ylabel('反演结果误差')
 
     iterEnd = length(err_it);
-legend(['测点',num2str(i)])
-set(gca,'FontSize',14,'FontWeight','bold')
-mkdir(fullfile(filefolder,'\反演成像图\迭代误差\'))
-for j = 1:1:iterEnd
-    text(j, err_it(j), num2str(j), ...
-    'HorizontalAlignment', 'center', ...
-    'VerticalAlignment', 'bottom', 'FontSize', 12);
-end
-saveas(gcf, fullfile(filefolder,'反演成像图\迭代误差\', sprintf('%d.tif', i)) )
+    legend(['测点',num2str(i)])
+    set(gca,'FontSize',14,'FontWeight','bold')
+    if ~exist(fullfile(filefolder,'\迭代误差\'),'dir')
+        mkdir(fullfile(filefolder,'\迭代误差\'))
+    end
+    for j = 1:1:iterEnd
+        text(j, err_it(j), num2str(j), ...
+        'HorizontalAlignment', 'center', ...
+        'VerticalAlignment', 'bottom', 'FontSize', 12);
+    end
+    saveas(gcf, fullfile(filefolder,'\迭代误差\', sprintf('%d.tif', i)) )
 
 close all
 

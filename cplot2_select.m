@@ -1,9 +1,9 @@
 % % 瀹炴祴鏁版嵁鐨勪綔鍥?
 % % function [] = myplot4(ns, nolayer, pset, total_depth, delta_pset)
-clear
+% clear
 % close all
 dbstop if error
-pset = 1:7;
+% pset = 1:ns;
 delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
 ns = length(pset);                  % 娴嬬偣鐨勪釜鏁?
 nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
@@ -13,17 +13,17 @@ no_para = 2 * nolayer -1;
 
 
 
-ind_array = [1 1 30 30 23 30 30];
+ind_array = 30*ones(1,ns); [1 1 30 30 23 30 30];
 
 %%
-filefolder = '.\仿真结果\0703v1';
+% filefolder = '.\仿真结果\0811v1\rawdata';
 
     a1 = []; 
     for i = 1:ns %:ns
         ind = ind_array(i);
 %         j = pset(i);
         j = i;
-        fileid = fopen( fullfile(filefolder, sprintf('res2dns%d.dat', j))   );
+        fileid = fopen( fullfile(filefolder1, sprintf('res2dns%d.dat', j))   );
         res = textscan(fileid,'%f64');
         fclose(fileid)
         res2 = res{1,1}; res2 = res2';
@@ -127,7 +127,7 @@ filefolder = '.\仿真结果\0703v1';
     %%
     mat(mat==1)=NaN;
 %      writetxt(mat','.\0629测线2.txt')
-   % {
+   %{
         % N=10 倍分辨率提升
         N=3;
        pset_new = (1:pset(end)*N)/N;
@@ -145,7 +145,7 @@ filefolder = '.\仿真结果\0703v1';
     % ---------------------------------------
 
 %     figure('Position',[200 200 900 600])
-    figure('Position',[521	213.666666666667	784	625.333333333333]) 
+    figure('Position',[21	13.666666666667	784	625.333333333333]) 
     h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
     % h.EdgeColor = 'none';
     shading flat%
@@ -161,11 +161,14 @@ filefolder = '.\仿真结果\0703v1';
     caxis([-4,2])
     set(gca,'ydir','reverse')
 
-%     for i = 1:ns
-%         text(xdraw_range(i)-0.5, 2, num2str(i), ...
-%         'HorizontalAlignment', 'center', ...
-%         'VerticalAlignment', 'bottom', 'FontSize', 12);
-%     end
+    for i = 1:ns
+        % 追求标号的准确性
+        if(i<ns) interval = xdraw_range(i+1)-xdraw_range(i); end
+
+        text(xdraw_range(i)-1 + 0.5*interval, 2, num2str(i), ...
+        'HorizontalAlignment', 'center', ...
+        'VerticalAlignment', 'bottom', 'FontSize', 12);
+    end
     
 %     for i = 1:ns
 %         hold on
@@ -175,6 +178,6 @@ filefolder = '.\仿真结果\0703v1';
 %         hold off
 %     end
 
-    saveas(gcf, fullfile(filefolder,'\反演成像图\', ['选择v1.tif']  ) )
+    saveas(gcf, fullfile(filefolder,'\', ['选择v1.tif']  ) )
 
 %     close all
