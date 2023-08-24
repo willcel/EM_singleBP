@@ -6,16 +6,16 @@ dbstop if error
 % pset = 1:13;
 delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
 ns = length(pset);                  % 娴嬬偣鐨勪釜鏁?
-nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
-total_depth = 25;           % 鏈?澶ф繁搴? m
+% nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
+% total_depth = 25;           % 鏈?澶ф繁搴? m
 no_para = 2 * nolayer -1;
 %%
 
 
 
 %%
-filefolder1 = 'D:\willcel\测线4-0629\EM_singleBP\仿真结果\0811v1\rawdata';
-filefolder = 'D:\willcel\测线4-0629\EM_singleBP\仿真结果\0811v1\';
+filefolder1 = [bpresName, 'rawdata'];
+filefolder = bpresName;
 iterEnd = 60;
 for iter = 1:iterEnd % 
     a1 = []; ind_array = [];

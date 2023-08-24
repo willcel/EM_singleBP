@@ -12,8 +12,8 @@ no_para = 2 * nolayer -1;
 %%
 
 
-
-ind_array = 30*ones(1,ns); [1 1 30 30 23 30 30];
+ind_array = [40 46 42 40 40 40 40 40 40 40 40 40 40 38 40 48 40 40 40 40 40 40 40 40 40 40 40 40 30 30];
+% ind_array = 30*ones(1,ns); [1 1 30 30 23 30 30];
 
 %%
 % filefolder = '.\仿真结果\0811v1\rawdata';
@@ -145,7 +145,7 @@ ind_array = 30*ones(1,ns); [1 1 30 30 23 30 30];
     % ---------------------------------------
 
 %     figure('Position',[200 200 900 600])
-    figure('Position',[21	13.666666666667	784	625.333333333333]) 
+    figure('Position',[100 100 1200 600]) 
     h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
     % h.EdgeColor = 'none';
     shading flat%
@@ -160,12 +160,12 @@ ind_array = 30*ones(1,ns); [1 1 30 30 23 30 30];
     set(gca,'FontSize',18,'FontWeight','bold')
     caxis([-4,2])
     set(gca,'ydir','reverse')
-
+    title('单点反演成像结果')
     for i = 1:ns
         % 追求标号的准确性
         if(i<ns) interval = xdraw_range(i+1)-xdraw_range(i); end
 
-        text(xdraw_range(i)-1 + 0.5*interval, 2, num2str(i), ...
+        text(xdraw_range(i)-1 + 0.5*interval, 1, num2str(i), ...
         'HorizontalAlignment', 'center', ...
         'VerticalAlignment', 'bottom', 'FontSize', 12);
     end
