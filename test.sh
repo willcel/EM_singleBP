@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {1..30}; do
+for i in {1..21}; do
   folder="./exp_nanjing$i"
   if [ -d "$folder" ]; then
     cd "$folder"

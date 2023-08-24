@@ -12,8 +12,12 @@ no_para = 2 * nolayer -1;
 %%
 
 
-ind_array = [40 46 42 40 40 40 40 40 40 40 40 40 40 38 40 48 40 40 40 40 40 40 40 40 40 40 40 40 30 30];
-% ind_array = 30*ones(1,ns); [1 1 30 30 23 30 30];
+% ind_array = 
+ind_array = 40*ones(1,ns); 
+
+ind1 = [1 2 3 11];
+arr1 = [50 50 59 50];
+ind_array(ind1) = arr1;
 
 %%
 % filefolder = '.\·ÂÕæ½á¹û\0811v1\rawdata';
