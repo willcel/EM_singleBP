@@ -13,11 +13,11 @@ no_para = 2 * nolayer -1;
 
 
 % ind_array = 
-ind_array = 40*ones(1,ns); 
+ind_array = [39*ones(1,12) 44 43 44 47 44 49 45 44 45 42 50 43 44]; 
 
-ind1 = [1 2 3 11];
-arr1 = [50 50 59 50];
-ind_array(ind1) = arr1;
+% ind1 = [1:12 13 14 15 16 17 18 19 20 21];
+% arr1 = [39*ones(1,12) 44 43 44 47 44 49 45 44 45 42 50 43 44];
+% ind_array(ind1) = arr1;
 
 %%
 % filefolder = '.\·ÂÕæ½á¹û\0811v1\rawdata';

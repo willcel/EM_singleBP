@@ -5,9 +5,9 @@ clc
 
 %% 拷贝电压、电流、初值文件
 % {
-
-cd('D:\willcel\code测线二_p1-21_0823\EM_datapre')
-path_code1 = 'D:\willcel\code测线二_p1-21_0823\EM_singleBP';
+specName = 'code测线三_p1-25_0823';
+cd( fullfile('D:\willcel\',specName,'\EM_datapre') )
+path_code1 = fullfile('D:\willcel\',specName,'\EM_singleBP');
 copyfile('point1set.txt',path_code1)
 copyfile('point2set.txt',path_code1)
 copyfile('point3set.txt',path_code1)
