@@ -7,14 +7,15 @@ dbstop if error
 delta_pset = 1;            % 测点之间的距�? （m�?
 ns = length(pset);                  % 测点的个�?
 nolayer = 5;                  % 划分的层�?
-total_depth = 25;           % �?大深�? m
+% total_depth = 25;           % �?大深�? m
 no_para = 2 * nolayer -1;
 %%
 
 
 % ind_array = 
-ind_array = [39*ones(1,12) 44 43 44 47 44 49 45 44 45 42 50 43 44]; 
-
+ind_array(1:13) = 35; 
+ind_array(13:20)= 30;
+ind_array(21:28) = 30;
 % ind1 = [1:12 13 14 15 16 17 18 19 20 21];
 % arr1 = [39*ones(1,12) 44 43 44 47 44 49 45 44 45 42 50 43 44];
 % ind_array(ind1) = arr1;

@@ -14,8 +14,7 @@ no_para = 2 * nolayer -1;
 
 
 %%
-filefolder1 = [bpresName, 'rawdata'];
-filefolder = bpresName;
+
 iterEnd = 60;
 for iter = 1:iterEnd % 
     a1 = []; ind_array = [];

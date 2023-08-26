@@ -5,7 +5,7 @@ clc
 
 %% 拷贝电压、电流、初值文件
 % {
-specName = 'code测线三_p1-25_0823';
+specName = 'code测线三_重测_0824';
 cd( fullfile('D:\willcel\',specName,'\EM_datapre') )
 path_code1 = fullfile('D:\willcel\',specName,'\EM_singleBP');
 copyfile('point1set.txt',path_code1)
@@ -21,21 +21,7 @@ cd(path_code1)
 %}
 
 %% ---------------------- 参数设置 ----------------------------------
-
-%% 数据预处理的参数
-
-%{
-for j = 2:ns
-    path_code1 = ['.\exp_nanjing',num2str(j),'\'];   
-    mkdir(path_code1)
-%     cd()
-    sourcefolder = '.\exp_nanjing1';
-    copyfile(sourcefolder, path_code1)
-end
-
-%}
  
-
 % 遍历每个测点
 % for i=1:ns 
 % j=1;

@@ -2,6 +2,8 @@
 %%
 bpresName = fullfile('D:\willcel\',specName,'\EM_singleBP\·ÂÕæ½á¹û\0824v1\') ;
 name = [bpresName, 'rawdata'];
+filefolder1 = [bpresName, 'rawdata'];
+filefolder = bpresName;
 mkdir(name)
 for i = 1:ns
     cd(fullfile('D:\willcel\',specName,'\EM_singleBP\', ['exp_nanjing',num2str(i)]) )
