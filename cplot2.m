@@ -101,32 +101,34 @@ for iter = 1:iterEnd %
      % ---- 为了pcolor画出最后一个测点 ---------
     xdraw_range = [pset, pset(end)+1]; mat = [mat;zeros(1,total_depth*scale_factor)];
     
-    figure('Position',[100 100 1200 600])
-    h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
-      % h.EdgeColor = 'none';
-    shading flat%interp
-    colormap jet
-    xlabel('Measurement Line / m','FontSize',15,'FontWeight','bold')
-    ylabel('Depth / m','FontSize',15,'FontWeight','bold')
-    h=colorbar;
-    set(get(h,'title'),'string','log10(\rho)');
-    % title('predicted model')
-    set(gca,'FontSize',14,'FontWeight','bold')
-    caxis([-4,2])
-    set(gca,'ydir','reverse')
-    title(['迭代次数',num2str(iter)])
-    
-    if ~exist(filefolder, 'dir')
-        mkdir(filefolder)
+    if(mod(iter, 5) == 0 || (iter >= 20 && iter <= 35))
+        figure('Position',[100 100 1200 600])
+        h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
+          % h.EdgeColor = 'none';
+        shading flat%interp
+        colormap jet
+        xlabel('Measurement Line / m','FontSize',15,'FontWeight','bold')
+        ylabel('Depth / m','FontSize',15,'FontWeight','bold')
+        h=colorbar;
+        set(get(h,'title'),'string','log10(\rho)');
+        % title('predicted model')
+        set(gca,'FontSize',14,'FontWeight','bold')
+        caxis([-4,2])
+        set(gca,'ydir','reverse')
+        title(['迭代次数',num2str(iter)])
+        
+        if ~exist(filefolder, 'dir')
+            mkdir(filefolder)
+        end
+        for i = 1:ns
+    %     scatter(i-0.25,1,'^')
+            text(xdraw_range(i)-0.5, 2, num2str(i), ...
+            'HorizontalAlignment', 'center', ...
+            'VerticalAlignment', 'bottom', 'FontSize', 12);
+        end
+        saveas(gcf, fullfile(filefolder,['迭代次数',num2str(iter),'.tif']  ) )
+        close all
     end
-    for i = 1:ns
-%     scatter(i-0.25,1,'^')
-        text(xdraw_range(i)-0.5, 2, num2str(i), ...
-        'HorizontalAlignment', 'center', ...
-        'VerticalAlignment', 'bottom', 'FontSize', 12);
-    end
-    saveas(gcf, fullfile(filefolder,['迭代次数',num2str(iter),'.tif']  ) )
-    close all
 end
 
 cplot2_err

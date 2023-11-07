@@ -29,12 +29,11 @@ for i = 1:ns %:ns
     atmp = res2(1:end);
     err_it = atmp(1,1:end) ;
     iter = 1:length(err_it);
-    figure('Position',[15	14.333333333333	1354	864]) % get(gcf,'Position')
+    figure('Position',[15	14.333333333333	1254	564]) % get(gcf,'Position')
     semilogy(iter, err_it, '-o','LineWidth',1.3)
-    grid on
-    hold on
-    xlabel('反演迭代次数')
-    ylabel('反演结果误差')
+    grid on; hold on; 
+    xlabel('反演迭代次数');   ylabel('反演结果误差')
+    ylim([1e-10 1e0])
 
     iterEnd = length(err_it);
     legend(['测点',num2str(i)])

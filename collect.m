@@ -1,6 +1,6 @@
 
 %%
-bpresName = fullfile('D:\willcel\',specName,'\EM_singleBP\仿真结果\0824v1\') ;
+bpresName = fullfile('D:\willcel\',specName,'\EM_singleBP\仿真结果\1107v1\') ;
 name = [bpresName, 'rawdata'];
 filefolder1 = [bpresName, 'rawdata'];
 filefolder = bpresName;

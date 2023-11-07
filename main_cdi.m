@@ -5,7 +5,7 @@ clc
 
 %% 拷贝电压、电流、初值文件
 % {
-specName = 'code测线三_重测_0824';
+specName = 'code1106车_汤山测线1_单点';
 cd( fullfile('D:\willcel\',specName,'\EM_datapre') )
 path_code1 = fullfile('D:\willcel\',specName,'\EM_singleBP');
 copyfile('point1set.txt',path_code1)
@@ -20,7 +20,7 @@ cd(path_code1)
 
 %}
 
-%% ---------------------- 参数设置 ----------------------------------
+% ---------------------- 参数设置 ----------------------------------
  
 % 遍历每个测点
 % for i=1:ns 
@@ -50,3 +50,20 @@ for i= 1:ns %1:ns
     ;
     j=j+1;
 end
+
+%% bash操作
+% 修改test.sh里的循环个数 = ns
+test.sh
+% cd ./*BP && bash test.sh
+
+
+%%
+% 修改存储文档名
+collect
+
+%% 绘图
+% 
+cplot2
+
+%%
+
