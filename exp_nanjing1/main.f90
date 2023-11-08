@@ -208,6 +208,8 @@ Common /this_is_note/zetaStep
     rerror_pre = 1.d8
     rerror = rerror_pre
 
+    Write(8,*)Vobs
+
 101 Continue
 
     CALL CPU_TIME(iter_start)
@@ -239,12 +241,12 @@ Common /this_is_note/zetaStep
     jacobi = 0.d0
 
 
-
+    
     !*************************** �������ݽ�� *******************************
 !    Write(6,*)'calculate dB/dt in time domain ...'
     do k=1,ns
 
-        htt = 0.01
+        htt = hr1
 
         if(counter .eq. 1)then
             do i=1,nolayer
@@ -277,27 +279,26 @@ Common /this_is_note/zetaStep
             if(i .le. nolayer)then
                 m_pre(i+(k-1)*npara,1) = dlog(rho_iter(i))
             else
-
                 m_pre(i+(k-1)*npara,1) = dlog(hh_iter(i-nolayer))
-
             end if
         end do
 
 
         ! ���㵱ǰ�������
         do i=1,ntc
-            deltadobs(i+(k-1)*ntc,1) = Vobs(i+(k-1)*ntc,1)-hz1_iter(i)
+            deltadobs(i+(k-1)*ntc,1) = 1 * ( Vobs(i+(k-1)*ntc,1)-hz1_iter(i) )
+            ! if(i .ge. 36)then
+            !     deltadobs(i+(k-1)*ntc,1) = 10 * ( Vobs(i+(k-1)*ntc,1)-hz1_iter(i) )
+            ! end if
         end do
 
         Write(8,*)hz1_iter
-        Write(8,*)deltadobs
+        ! Write(8,*)deltadobs
 
         ! �����ſɱȾ���
 !        Write(6,*)'calculate Jacobi matrix ...'
-         call cal_jacobi(rho_iter, hh_iter,jacobi1, nolayer, ntc, ns_index,&
+         call cal_jacobi(rho_iter, hh_iter, jacobi1, nolayer, ntc, ns_index,&
          & point1set, point2set, point3set, point4set,htt,ns_real,t_st,t_ed,xr1, hr1,rt1, rr1,nturn1,nturn11)
-
-
 
         ! �ܵ��ſɱȾ���
         do i=1,ntc
@@ -967,7 +968,10 @@ Common /this_is_note/zetaStep
         & ns_real2,t_st2,t_ed2,xr1, hr1,rt1, rr1,nturn1,nturn11)
 
         do k=1,ntc1
-            temp(k)=temp(k)+(hzz1(k)-hzz11(k))*1.d0/2/zetaStep/zeta1(i)/del
+            temp(k)=temp(k)+ 1* (hzz1(k)-hzz11(k))*1.d0/2/zetaStep/zeta1(i)/del
+            ! if(k .ge. 36)then
+            !     temp(k)=temp(k)+ 10 * (hzz1(k)-hzz11(k))*1.d0/2/zetaStep/zeta1(i)/del
+            ! end if
         end do
 
     end do

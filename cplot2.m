@@ -101,7 +101,7 @@ for iter = 1:iterEnd %
      % ---- 为了pcolor画出最后一个测点 ---------
     xdraw_range = [pset, pset(end)+1]; mat = [mat;zeros(1,total_depth*scale_factor)];
     
-    if(mod(iter, 5) == 0 || (iter >= 20 && iter <= 35))
+    if(iter == 1 || mod(iter, 5) == 0 || (iter >= 20 && iter <= 35))
         figure('Position',[100 100 1200 600])
         h=pcolor(delta_pset*(xdraw_range - min(xdraw_range)),y,log10(mat'));
           % h.EdgeColor = 'none';

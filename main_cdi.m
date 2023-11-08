@@ -29,9 +29,10 @@ for i= 1:ns %1:ns
     path_code1 = ['.\exp_nanjing',num2str(i),'\'];   
     if ~exist(path_code1, 'dir')
         mkdir(path_code1)
+    end
+    if i ~= 1
         copyfile('.\exp_nanjing1\main.f90',path_code1)
     end
-    
     parameter_settings = [nt; nolayer; ns; 1; i; t_st; t_ed; xr; hr; rt;  rr; nturn; nturn1]; 
     save('parameter_settings.txt','parameter_settings','-ascii')
     
