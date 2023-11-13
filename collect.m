@@ -1,8 +1,8 @@
 
 %%
-bpresName = fullfile('D:\willcel\',specName,'\EM_singleBP\仿真结果\1107v9\') ;
-name = [bpresName, 'rawdata'];
-filefolder1 = [bpresName, 'rawdata'];
+bpresName = fullfile('D:\willcel\',specName,'\EM_singleBP\仿真结果\',ftmp) ;
+name = [bpresName, '\rawdata'];
+filefolder1 = name;
 filefolder = bpresName;
 mkdir(name)
 for i = 1:ns

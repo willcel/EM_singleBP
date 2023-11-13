@@ -1,7 +1,7 @@
 
-    !***************************************************
-    ! �����ݴŵ���
-    !***************************************************
+!***************************************************
+! �����ݴŵ���
+!***************************************************
     Module ran_mod
     Implicit None
     ! ran return a uniform random number between 0-1
@@ -286,10 +286,11 @@ Common /this_is_note/zetaStep
 
         ! ���㵱ǰ�������
         do i=1,ntc
-            deltadobs(i+(k-1)*ntc,1) = 1 * ( Vobs(i+(k-1)*ntc,1)-hz1_iter(i) )
-            ! if(i .ge. 36)then
-            !     deltadobs(i+(k-1)*ntc,1) = 10 * ( Vobs(i+(k-1)*ntc,1)-hz1_iter(i) )
-            ! end if
+            if(i .le. 24)then
+                deltadobs(i+(k-1)*ntc,1) = 0.
+            else
+                deltadobs(i+(k-1)*ntc,1) = Vobs(i+(k-1)*ntc,1)-hz1_iter(i)
+            end if
         end do
 
         Write(8,*)hz1_iter
@@ -297,8 +298,8 @@ Common /this_is_note/zetaStep
 
         ! �����ſɱȾ���
 !        Write(6,*)'calculate Jacobi matrix ...'
-         call cal_jacobi(rho_iter, hh_iter, jacobi1, nolayer, ntc, ns_index,&
-         & point1set, point2set, point3set, point4set,htt,ns_real,t_st,t_ed,xr1, hr1,rt1, rr1,nturn1,nturn11)
+            call cal_jacobi(rho_iter, hh_iter, jacobi1, nolayer, ntc, ns_index,&
+            & point1set, point2set, point3set, point4set,htt,ns_real,t_st,t_ed,xr1, hr1,rt1, rr1,nturn1,nturn11)
 
         ! �ܵ��ſɱȾ���
         do i=1,ntc
@@ -363,7 +364,7 @@ Common /this_is_note/zetaStep
     ! WRITE(33,*) 'Iter', counter ,' CPU time:', elapsed_time, 'seconds'
     WRITE(*,*) 'Iter', counter ,' CPU time:', elapsed_time, 'seconds'
 
-    If(rerror>epsi .and. counter<60) Goto 101
+    If(rerror>epsi .and. counter<100) Goto 101
     print*, 'rerror', rerror
     ! print*, 'epsi', epsi
 
@@ -968,10 +969,11 @@ Common /this_is_note/zetaStep
         & ns_real2,t_st2,t_ed2,xr1, hr1,rt1, rr1,nturn1,nturn11)
 
         do k=1,ntc1
-            temp(k)=temp(k)+ 1* (hzz1(k)-hzz11(k))*1.d0/2/zetaStep/zeta1(i)/del
-            ! if(k .ge. 36)then
-            !     temp(k)=temp(k)+ 10 * (hzz1(k)-hzz11(k))*1.d0/2/zetaStep/zeta1(i)/del
-            ! end if
+            if(k .le. 24)then
+                temp(k)=temp(k)+ 0.
+            else
+                temp(k)=temp(k)+ 1* (hzz1(k)-hzz11(k))*1.d0/2/zetaStep/zeta1(i)/del
+            end if
         end do
 
     end do
@@ -1217,7 +1219,7 @@ Do i = 1, nfrq
             End If
 
             ! dB/dt for trapezoid
-            hz1(i) = 4*rt*rt*nturn*ss2*(pi*rr**2*nturn1)
+            hz1(i) = 2000 * 4*rt*rt*nturn*ss2*(pi*rr**2*nturn1)
         End Do
 
     End If

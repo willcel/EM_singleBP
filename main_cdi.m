@@ -5,7 +5,7 @@ clc
 
 %% 拷贝电压、电流、初值文件
 % {
-specName = 'code1106车_汤山测线1_单点';
+specName = 'code1112车_单点汤山测线1_3';
 cd( fullfile('D:\willcel\',specName,'\EM_datapre') )
 path_code1 = fullfile('D:\willcel\',specName,'\EM_singleBP');
 copyfile('point1set.txt',path_code1)
@@ -60,9 +60,10 @@ test.sh
 
 %%
 % 修改存储文档名
+ftmp = '1113v2';
 collect
 
-%% 绘图
+% 绘图
 % 
 cplot2
 

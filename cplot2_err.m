@@ -33,7 +33,7 @@ for i = 1:ns %:ns
     semilogy(iter, err_it, '-o','LineWidth',1.3)
     grid on; hold on; 
     xlabel('反演迭代次数');   ylabel('反演结果误差')
-    ylim([1e-10 1e0])
+%     ylim([1e-10 1e0])
 
     iterEnd = length(err_it);
     legend(['测点',num2str(i)])
