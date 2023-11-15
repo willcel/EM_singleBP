@@ -6,16 +6,12 @@ dbstop if error
 % pset = 1:ns;
 delta_pset = 1;            % 娴嬬偣涔嬮棿鐨勮窛绂? 锛坢锛?
 ns = length(pset);                  % 娴嬬偣鐨勪釜鏁?
-nolayer = 5;                  % 鍒掑垎鐨勫眰鏁?
 % total_depth = 25;           % 鏈?澶ф繁搴? m
 no_para = 2 * nolayer -1;
 %%
 
 
-% ind_array = 
-ind_array(1:13) = 35; 
-ind_array(13:20)= 30;
-ind_array(21:28) = 30;
+ind_array(1:ns) = 25;
 % ind1 = [1:12 13 14 15 16 17 18 19 20 21];
 % arr1 = [39*ones(1,12) 44 43 44 47 44 49 45 44 45 42 50 43 44];
 % ind_array(ind1) = arr1;
@@ -67,12 +63,8 @@ ind_array(21:28) = 30;
     end
     a_observe = a_observe';
 %     
-    % layerHeight(1,3) = 5; 
-    % layerHeight(3,3) = 6; 
-    % layerHeight(4,3) = 6; 
-    % layerHeight(5,3) = 2.8;
-    % layerHeight(7,3) = 2.5;
-    % a(:, 6:end) = layerHeight;
+%     layerHeight(1:ns,1) = layerHeight(1:ns,1); 
+    a(:, (nolayer+1):end) = layerHeight;
 
     % a(:,3) = 0.47;
     % a(1:4,4) = mean(a(1:4,4));
@@ -155,7 +147,7 @@ ind_array(21:28) = 30;
     % h.EdgeColor = 'none';
     shading flat%
 %     shading interp
-    % xlim([0 6.6])
+%     xlim([0 ns-1])
     colormap jet
     xlabel('Measurement Line / m','FontSize',15,'FontWeight','bold')
     ylabel('Depth / m','FontSize',15,'FontWeight','bold')
@@ -165,7 +157,8 @@ ind_array(21:28) = 30;
     set(gca,'FontSize',18,'FontWeight','bold')
     caxis([-4,2])
     set(gca,'ydir','reverse')
-    title('单点反演成像结果')
+    title('反演成像')
+    saveas(gcf, fullfile(filefolder,'\', ['选择v1.tif']  ) )
     for i = 1:ns
         % 追求标号的准确性
         if(i<ns) interval = xdraw_range(i+1)-xdraw_range(i); end
@@ -183,6 +176,6 @@ ind_array(21:28) = 30;
 %         hold off
 %     end
 
-    saveas(gcf, fullfile(filefolder,'\', ['选择v1.tif']  ) )
+    
 
 %     close all
